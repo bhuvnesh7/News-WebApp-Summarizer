@@ -100,13 +100,22 @@ def textrank_summarise(paragraph, no_of_sentences): # self-implemented summariza
 
     ranked_sentences = sorted(((scores[i],s) for i,s in enumerate(sentences)), reverse=True)
 
-    summary = ""
+    # summary = ""
     
+    # for i in range(no_of_sentences):
+    #   summary=summary + ranked_sentences[i][1]
+    
+    # summary = summary.strip()
+    # summary = re.sub(r'\n',' ',summary)
+
+    templis = []
+
     for i in range(no_of_sentences):
-      summary=summary + ranked_sentences[i][1]
+        templis.append(ranked_sentences[i][1])
     
+    summary = '\n'.join(templis)
     summary = summary.strip()
-    summary = re.sub(r'\n',' ',summary)
+    summary = re.sub(r'\n\n','\n',summary)
     
     if flag==0:
         return summary
