@@ -108,10 +108,7 @@ def textrank_summarise(paragraph, no_of_sentences): # self-implemented summariza
     # summary = summary.strip()
     # summary = re.sub(r'\n',' ',summary)
 
-    templis = []
-
-    for i in range(no_of_sentences):
-        templis.append(ranked_sentences[i][1])
+    templis = [y[1] for y in ranked_sentences[:no_of_sentences]]
     
     summary = '\n'.join(templis)
     summary = summary.strip()
