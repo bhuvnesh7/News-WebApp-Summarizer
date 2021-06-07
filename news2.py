@@ -1,3 +1,7 @@
+# Python script for retrieving news articles from NewsAPI, summarizing them
+# using self-implemented summarization function based on TextRank and 
+# storing in MongoDB database.
+
 import requests
 import json
 import time
