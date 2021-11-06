@@ -80,10 +80,12 @@ def cosine_similarity(s1, s2):
         pass
     return cos_sim
 
-def page_rank(M, d = 0.85, iters = 100): #self-implemented pagerank function
+def page_rank(M, d = 0.85, iters = 100): #self-implemented PageRank function
   N = M.shape[1]
+  col_sums = M.sum(axis=0)
+  M_norm = M / col_sums[np.newaxis, :] # Normalizing along columns
   ranks = np.full((N,1), 1/N)
-  M_hat = (d * M + (1 - d) / N)
+  M_hat = (d * M_norm + (1 - d) / N)
 
   for i in range(iters):
     ranks = M_hat @ ranks
