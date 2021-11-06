@@ -103,7 +103,7 @@ def textrank_summarise(paragraph, no_of_sentences): # self-implemented summariza
 
     for i in range(0,len(cleaned_sentences)):
         for j in range(0,len(cleaned_sentences)):
-            if type(cosine_similarity(cleaned_sentences[i],cleaned_sentences[j])) == np.float64 :
+            if i!=j and type(cosine_similarity(cleaned_sentences[i],cleaned_sentences[j])) == np.float64 :
                 similarity_matrix[i,j] = cosine_similarity(cleaned_sentences[i],cleaned_sentences[j])
     
     # nx_graph = nx.from_numpy_array(similarity_matrix)
