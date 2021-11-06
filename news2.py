@@ -80,6 +80,17 @@ def cosine_similarity(s1, s2):
         pass
     return cos_sim
 
+def page_rank(M, d = 0.85, iters = 100): #self-implemented pagerank function
+  N = M.shape[1]
+  ranks = np.full((N,1), 1/N)
+  M_hat = (d * M + (1 - d) / N)
+
+  for i in range(iters):
+    ranks = M_hat @ ranks
+  
+  ranks = ranks.flatten()
+  return ranks
+
 def textrank_summarise(paragraph, no_of_sentences): # self-implemented summarization function based on TextRank
     
     sentences = sent_tokenize(paragraph) # no. of sentences
@@ -93,14 +104,14 @@ def textrank_summarise(paragraph, no_of_sentences): # self-implemented summariza
             if type(cosine_similarity(cleaned_sentences[i],cleaned_sentences[j])) == np.float64 :
                 similarity_matrix[i,j] = cosine_similarity(cleaned_sentences[i],cleaned_sentences[j])
     
-    nx_graph = nx.from_numpy_array(similarity_matrix)
+    # nx_graph = nx.from_numpy_array(similarity_matrix)
     flag = 0
     try:
-        scores = nx.pagerank(nx_graph, max_iter=600)  # VVIMP
+        # scores = nx.pagerank(nx_graph, max_iter=600)  # VVIMP
+        scores = page_rank(similarity_matrix)
     except Exception as e :
         flag=1
         return 'xxx'
-    
 
     ranked_sentences = sorted(((scores[i],s) for i,s in enumerate(sentences)), reverse=True)
 
@@ -120,6 +131,7 @@ def textrank_summarise(paragraph, no_of_sentences): # self-implemented summariza
     
     if flag==0:
         return summary
+
 
 # Getting articles using the API
 
